@@ -25,7 +25,7 @@ start_all = datetime.datetime.now()
 # path
 path_train = "/data/dm/train.csv"  # 训练文件路径
 path_test = "/data/dm/test.csv"  # 测试文件路径
-path_result_out = "model/pro_result.csv" 
+path_result_out = "model/pro_result.csv" #预测结果文件路径
 
 
 # read train data
@@ -90,7 +90,7 @@ featurename = ['item', 'num_of_trips', 'num_of_records','num_of_state_0','num_of
 train1.columns = featurename
 
 print("train data process time:",(datetime.datetime.now()-start_all).seconds)
-# Train model
+# 特征使用
 feature_use = ['item', 'num_of_trips', 'num_of_records','num_of_state_0','num_of_state_1','num_of_state_2','num_of_state_3','num_of_state_4',\
                'mean_speed','var_speed','mean_height'
     ,'h0','h1','h2','h3','h4','h5','h6','h7','h8','h9','h10','h11'
@@ -146,12 +146,14 @@ for item in data['TERMINALNO'].unique():
 test1 = pd.DataFrame(test1)
 test1.columns = featurename
 
+# 采用lgb回归预测模型，具体参数设置如下
 model_lgb = lgb.LGBMRegressor(objective='regression',num_leaves=5,
                               learning_rate=0.01, n_estimators=720,
                               max_bin = 55, bagging_fraction = 0.8,
                               bagging_freq = 5, feature_fraction = 0.2319,
                               feature_fraction_seed=9, bagging_seed=9,
                               min_data_in_leaf =6, min_sum_hessian_in_leaf = 11)
+# 训练、预测
 model_lgb.fit(train1[feature_use].fillna(-1), train1['target'])
 y_pred = model_lgb.predict(test1[feature_use].fillna(-1))
 print("lgb success")
