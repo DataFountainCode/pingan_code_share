@@ -15,11 +15,12 @@
 ### 贡献者名单：
 
 - [poteman](https://github.com/poteman) 
+- [xgqiang](https://github.com/orgs/DataFountainCode/people/xgqiang)
 
 
 ### 开源备注
 
-- 本开源经DF官方评测得分 0.05716，为基础开源
+- 本开源经DF官方评测得分 0.10617，为基础开源
 - 比赛中需严格按要求打包作品，否则无法成功评测
 
 
